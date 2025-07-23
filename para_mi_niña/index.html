@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Nicole, Con Amor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 60px 20px 40px;
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Corazones cayendo */
+    .heart {
+      position: absolute;
+      top: -50px;
+      color: #ff6b8b;
+      font-size: 20px;
+      animation: falling linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes falling {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 40px;
+      color: #ff6b8b;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+      z-index: 1;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    h1:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, #ff6b8b 0%, #ffb8c6 100%);
+      border-radius: 3px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      perspective: 1000px;
+      margin-bottom: 50px;
+      max-width: 1000px;
+      z-index: 1;
+    }
+
+    .card {
+      width: 200px;
+      height: 280px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      cursor: pointer;
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px -5px rgba(255, 107, 139, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.5s ease;
+      overflow: hidden;
+    }
+
+    .front {
+background-image: radial-gradient(at 97.76645283592977% 15.99142186333198%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 1) 0%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 0) 100%), radial-gradient(at 20.62551685093871% 79.25295781015234%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 1) 0%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 0) 100%), radial-gradient(at 79.35625249186802% 80.00151535407797%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 1) 0%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 0) 100%), radial-gradient(at 53.26855052822983% 99.00123757234%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 1) 0%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 0) 100%), radial-gradient(at 18.726899606204807% 59.62094494214152%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 1) 0%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 0) 100%), radial-gradient(at 55.38072663705423% 61.53837809316991%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 1) 0%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 0) 100%), radial-gradient(at 78.97754376296223% 13.540508003268837%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 1) 0%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 0) 100%), radial-gradient(at 49.97426248969477% 28.60593324471836%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 1) 0%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 0) 100%), radial-gradient(at 57.2441795582307% 87.47539287085542%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 1) 0%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 0) 100%), radial-gradient(at 6.082501068548551% 74.34193913130156%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 1) 0%, hsla(5.454545454545427, 8.661417322834659%, 75.09803921568627%, 0) 100%), radial-gradient(at 22.122450145390182% 5.1685843893118815%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 1) 0%, hsla(340.00000000000006, 14.754098360655728%, 88.0392156862745%, 0) 100%);
+      z-index: 2;
+      color: #000;
+      font-weight: 700;
+      border: 1px solid rgba(255, 107, 139, 0.3);
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(255, 107, 139, 0.3);
+    }
+
+    .back {
+      background: linear-gradient(135deg, #ff6b8b 0%, #ffb8c6 100%);
+      color: #000;
+      transform: rotateY(180deg);
+      z-index: 1;
+      font-weight: 300;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      font-size: 1rem;
+      overflow-y: auto;
+    }
+
+    .footer {
+      text-align: center;
+      color: #ff6b8b;
+      margin-top: 30px;
+      max-width: 600px;
+      z-index: 1;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .footer h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer h2:after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #ff6b8b 0%, #ffb8c6 100%);
+    }
+
+    .footer p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .rose-icon {
+      font-size: 1.5rem;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+
+    /* Efecto hover en las cartas */
+    .card:hover .front {
+      transform: scale(1.05);
+      box-shadow: 0 15px 35px -5px rgba(255, 107, 139, 0.4);
+    }
+
+    /* Controles de audio (ocultos o estilizados) */
+    .audio-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .audio-controls:hover {
+      opacity: 1;
+    }
+
+    .audio-controls button {
+      background: #ff6b8b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .card {
+        width: 160px;
+        height: 240px;
+      }
+      
+      .front {
+        font-size: 4rem;
+      }
+      
+      .back {
+        font-size: 0.9rem;
+        padding: 15px;
+      }
+      
+      .footer h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 40px 15px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+      
+      .card {
+        width: 140px;
+        height: 200px;
+        padding: 15px;
+      }
+      
+      .front {
+        font-size: 3rem;
+      }
+      
+      .back {
+        font-size: 0.8rem;
+        padding: 12px;
+      }
+      
+      .footer h2 {
+        font-size: 1.8rem;
+      }
+      
+      .footer p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reproductor de audio -->
+  <audio id="backgroundMusic" loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+  <!-- Controles de audio -->
+  <div class="audio-controls">
+    <button id="toggleMusic">🔊</button>
+  </div>
+
+  <h1>Para Ti, Mi Nicole </h1>
+
+  <div class="card-container">
+    <!-- Carta 1: Disculpas -->
+    <div class="card" data-msg="Perdón por mis errores, por mis palabras tontas, y por no saber siempre cómo actuar contigo. Aprendo de ti cada día.">
+      <div class="card-face front">N</div>
+      <div class="card-face back">❤️</div>
+    </div>
+
+    <!-- Carta 2: Lo que siento -->
+    <div class="card" data-msg="Lo que siento por ti es profundo, sincero y real. Estás en cada parte de mí, en cada pensamiento y en cada sueño.">
+      <div class="card-face front">I</div>
+      <div class="card-face back">❤️</div>
+    </div>
+
+    <!-- Carta 3: Declaración -->
+    <div class="card" data-msg="Nicole, me gustas más de lo que las palabras pueden expresar. Me gustas con todo mi ser. Quiero que seas mi persona en cada momento.">
+      <div class="card-face front">C</div>
+      <div class="card-face back">❤️</div>
+    </div>
+
+    <!-- Carta 4: Quédate conmigo -->
+    <div class="card" data-msg="A través de todo, quiero que elijas quedarte a mi lado. Lo bueno y lo malo, quiero vivirlo contigo, crecer contigo.">
+      <div class="card-face front">O</div>
+      <div class="card-face back">❤️</div>
+    </div>
+
+    <!-- Carta 5: Soporte -->
+    <div class="card" data-msg="Gracias por tu paciencia cuando soy inmaduro. Sé que no soy fácil, pero contigo encuentro la motivación para ser mejor cada día.">
+      <div class="card-face front">L</div>
+      <div class="card-face back">❤️</div>
+    </div>
+
+    <!-- Carta 6: Quédate a pesar de todo -->
+    <div class="card" data-msg="Nicole, quiero que elijas quedarte conmigo a pesar de todo. De mis errores, de mis fallas, de mis momentos difíciles. Prometo darte todo mi amor y dedicación cada día. Eres lo más importante para mí.">
+      <div class="card-face front">E</div>
+      <div class="card-face back">❤️</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <h2>Nicole <span class="rose-icon">🌹</span></h2>
+    <p>Se que a pesar de todo lo que pasamos, te amo, y espero lo entiendas y quiero que sepas que te amo, Att: Mateo osea tu Zeus, ya mi amor lo siento soy una mrda 😭 te necesito mi amor.</p>
+  </div>
+
+  <script>
+    // Crear corazones que caen
+    function createHearts() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+      document.body.appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+    
+    // Generar corazones cada 300ms
+    setInterval(createHearts, 300);
+    
+    // Animación de las cartas
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      const front = card.querySelector('.front');
+      const back = card.querySelector('.back');
+      const message = card.getAttribute('data-msg');
+
+      card.addEventListener('click', () => {
+        const isFlipped = card.classList.contains('flipped');
+
+        if (!isFlipped) {
+          back.textContent = message;
+          card.classList.add('flipped');
+
+          anime({
+            targets: back,
+            opacity: [0, 1],
+            duration: 800,
+            easing: 'easeOutQuint'
+          });
+        } else {
+          card.classList.remove('flipped');
+
+          anime({
+            targets: front,
+            opacity: [0, 1],
+            duration: 600,
+            easing: 'easeOutQuint',
+            complete: () => {
+              back.textContent = '❤️';
+            }
+          });
+        }
+      });
+    });
+
+    // Control de música de fondo
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const toggleMusicButton = document.getElementById('toggleMusic');
+    
+    // Intentar reproducir automáticamente (puede ser bloqueado por algunos navegadores)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configurar el bucle
+      backgroundMusic.loop = true;
+      
+      // Intentar reproducir (la mayoría de navegadores bloquean la reproducción automática)
+      const playPromise = backgroundMusic.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Mostrar el botón si falla la reproducción automática
+          toggleMusicButton.style.display = 'flex';
+        });
+      }
+    });
+    
+    // Control del botón de música
+    toggleMusicButton.addEventListener('click', function() {
+      if (backgroundMusic.paused) {
+        backgroundMusic.play();
+        toggleMusicButton.textContent = '🔊';
+      } else {
+        backgroundMusic.pause();
+        toggleMusicButton.textContent = '🔇';
+      }
+    });
+    
+    // Ocultar el botón si la música se está reproduciendo automáticamente
+    backgroundMusic.addEventListener('playing', function() {
+      toggleMusicButton.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
